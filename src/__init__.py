@@ -1,5 +1,9 @@
 # MaimaiDX Plugin Source Package
 
+# 导入类型注解
+from typing import List, Dict
+from pathlib import Path
+
 # 导入路径管理器
 from .path_manager import *
 

@@ -23,18 +23,18 @@ def draw_today_fortune_image(user_id, rp, wm_list, wm_value, music, ds):
     bg = tricolor_gradient(width, height)
     # 叠加aurora和pattern
     try:
-        aurora = Image.open(Root / 'src/static/mai/pic/aurora.png').resize((width, 220)).convert('RGBA')
+        aurora = Image.open(Root / 'static/mai/pic/aurora.png').resize((width, 220)).convert('RGBA')
         bg.alpha_composite(aurora, (0, 0))
     except Exception:
         pass
     try:
-        pattern = Image.open(Root / 'src/static/mai/pic/pattern.png').resize((width, 120)).convert('RGBA')
+        pattern = Image.open(Root / 'static/mai/pic/pattern.png').resize((width, 120)).convert('RGBA')
         bg.alpha_composite(pattern, (0, height-120))
     except Exception:
         pass
     # logo
     try:
-        logo = Image.open(Root / 'src/static/mai/pic/logo.png').resize((120, 60)).convert('RGBA')
+        logo = Image.open(Root / 'static/mai/pic/logo.png').resize((120, 60)).convert('RGBA')
         bg.alpha_composite(logo, (30, 20))
     except Exception:
         pass
@@ -47,7 +47,7 @@ def draw_today_fortune_image(user_id, rp, wm_list, wm_value, music, ds):
         pass
     # 卡通小人
     try:
-        chara = Image.open(Root / 'src/static/mai/pic/chara-right.png').resize((180, 180)).convert('RGBA')
+        chara = Image.open(Root / 'static/mai/pic/chara-right.png').resize((180, 180)).convert('RGBA')
         bg.alpha_composite(chara, (width-200, height-200))
     except Exception:
         pass

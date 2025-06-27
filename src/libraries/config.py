@@ -1,7 +1,7 @@
 import uuid
 from pathlib import Path
 from typing import Dict, List
-from path_manager import *
+from ..path_manager import *
 
 BOTNAME = 'AbyssSeeker'
 log = print
@@ -11,7 +11,7 @@ SNAPSHOT_JS = (
     "echarts.getInstanceByDom(document.querySelector('div[_echarts_instance_]'))."
     "getDataURL({type: 'PNG', pixelRatio: 2, excludeComponents: ['toolbox']})"
 )
-Root: Path = PROJECT_ROOT
+Root: Path = PLUGIN_ROOT
 static: Path = STATIC_DIR
 arcades_json: Path = ARCADES_JSON
 config_json: Path = CONFIG_JSON
