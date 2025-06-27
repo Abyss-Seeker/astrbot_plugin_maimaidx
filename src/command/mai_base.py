@@ -1,14 +1,14 @@
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from pathlib import Path
-from libraries.config import Root, SHANGGUMONO, BOTNAME, log
-from libraries.image import image_to_base64, music_picture, text_to_image, tricolor_gradient, rounded_corners
-from libraries.maimaidx_api_data import maiApi
-from libraries.maimaidx_error import *
-from libraries.maimaidx_music import mai
-from libraries.maimaidx_music_info import draw_music_info
-from libraries.maimaidx_player_score import rating_ranking_data
-from libraries.tool import qqhash
+from ..libraries.config import Root, SHANGGUMONO, BOTNAME, log
+from ..libraries.image import image_to_base64, music_picture, text_to_image, tricolor_gradient, rounded_corners
+from ..libraries.maimaidx_api_data import maiApi
+from ..libraries.maimaidx_error import *
+from ..libraries.maimaidx_music import mai
+from ..libraries.maimaidx_music_info import draw_music_info
+from ..libraries.maimaidx_player_score import rating_ranking_data
+from ..libraries.tool import qqhash
 import PIL.Image
 
 # CLI 版全局变量
@@ -23,18 +23,18 @@ def draw_today_fortune_image(user_id, rp, wm_list, wm_value, music, ds):
     bg = tricolor_gradient(width, height)
     # 叠加aurora和pattern
     try:
-        aurora = Image.open(Root / 'static/mai/pic/aurora.png').resize((width, 220)).convert('RGBA')
+        aurora = Image.open(Root / 'src/static/mai/pic/aurora.png').resize((width, 220)).convert('RGBA')
         bg.alpha_composite(aurora, (0, 0))
     except Exception:
         pass
     try:
-        pattern = Image.open(Root / 'static/mai/pic/pattern.png').resize((width, 120)).convert('RGBA')
+        pattern = Image.open(Root / 'src/static/mai/pic/pattern.png').resize((width, 120)).convert('RGBA')
         bg.alpha_composite(pattern, (0, height-120))
     except Exception:
         pass
     # logo
     try:
-        logo = Image.open(Root / 'static/mai/pic/logo.png').resize((120, 60)).convert('RGBA')
+        logo = Image.open(Root / 'src/static/mai/pic/logo.png').resize((120, 60)).convert('RGBA')
         bg.alpha_composite(logo, (30, 20))
     except Exception:
         pass
@@ -47,7 +47,7 @@ def draw_today_fortune_image(user_id, rp, wm_list, wm_value, music, ds):
         pass
     # 卡通小人
     try:
-        chara = Image.open(Root / 'static/mai/pic/chara-right.png').resize((180, 180)).convert('RGBA')
+        chara = Image.open(Root / 'src/static/mai/pic/chara-right.png').resize((180, 180)).convert('RGBA')
         bg.alpha_composite(chara, (width-200, height-200))
     except Exception:
         pass
@@ -198,6 +198,7 @@ async def mai_today_cli(user_id=None):
     img_path = Path(f"today_fortune_{user_id}.png")
     img.save(img_path)
     print(f"今日舞萌大图已保存到: {img_path}")
+    return img_path
 
 async def mai_what_cli(user_id, point=None):
     music = mai.total_list.random()

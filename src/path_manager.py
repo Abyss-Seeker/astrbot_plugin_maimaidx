@@ -1,29 +1,29 @@
 """
-中央路径管理文件
+中央路径管理文件 - 适配 AstrBot 插件结构
 解决相对路径问题，提供统一的路径管理
 """
 import os
 import sys
 from pathlib import Path
 
-# 获取项目根目录
-def get_project_root():
-    """获取项目根目录"""
+# 获取插件根目录
+def get_plugin_root():
+    """获取插件根目录"""
     current_file = Path(__file__).resolve()
-    return current_file.parent
+    return current_file.parent.parent
 
-# 项目根目录
-PROJECT_ROOT = get_project_root()
+# 插件根目录
+PLUGIN_ROOT = get_plugin_root()
 
-# 添加项目根目录到Python路径
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+# 添加插件根目录到Python路径
+if str(PLUGIN_ROOT) not in sys.path:
+    sys.path.insert(0, str(PLUGIN_ROOT))
 
 # 主要目录路径
-STATIC_DIR = PROJECT_ROOT / 'static'
-OUTPUT_DIR = PROJECT_ROOT / 'output'
-COMMAND_DIR = PROJECT_ROOT / 'command'
-LIBRARIES_DIR = PROJECT_ROOT / 'libraries'
+STATIC_DIR = PLUGIN_ROOT / 'src' / 'static'
+OUTPUT_DIR = PLUGIN_ROOT / 'output'
+COMMAND_DIR = PLUGIN_ROOT / 'src' / 'command'
+LIBRARIES_DIR = PLUGIN_ROOT / 'src' / 'libraries'
 
 # 确保输出目录存在
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -51,12 +51,12 @@ GROUP_ALIAS_FILE = STATIC_DIR / 'group_alias_switch.json'
 PIE_HTML_FILE = STATIC_DIR / 'temp_pie.html'
 
 # 帮助图片
-HELP_IMAGE = PROJECT_ROOT / 'maimaidxhelp.png'
+HELP_IMAGE = PLUGIN_ROOT / 'maimaidxhelp.png'
 
 def get_relative_path(target_path: Path) -> Path:
-    """获取相对于项目根目录的路径"""
+    """获取相对于插件根目录的路径"""
     try:
-        return target_path.relative_to(PROJECT_ROOT)
+        return target_path.relative_to(PLUGIN_ROOT)
     except ValueError:
         return target_path
 

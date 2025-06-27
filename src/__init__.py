@@ -1,7 +1,4 @@
-# 本文件作为全局常量、路径、配置项唯一入口，供全项目 import
-import uuid
-from pathlib import Path
-from typing import Dict, List
+# MaimaiDX Plugin Source Package
 
 # 导入路径管理器
 from .path_manager import *
@@ -16,6 +13,7 @@ log = print
 public_addr = 'https://www.yuzuchan.moe/vote'
 
 # ws
+import uuid
 UUID = uuid.uuid1()
 
 # echartsjs
@@ -25,7 +23,7 @@ SNAPSHOT_JS = (
 )
 
 # 文件路径 - 使用path_manager中的定义
-Root: Path = PROJECT_ROOT
+Root: Path = PLUGIN_ROOT
 static: Path = STATIC_DIR
 
 arcades_json: Path = ARCADES_JSON                    # 机厅
@@ -187,4 +185,4 @@ category: Dict[str, str] = {
     'ゲームバラエティ': 'game',
     'オンゲキCHUNITHM': 'ongeki',
     '宴会場': '宴会场'
-}
+} 

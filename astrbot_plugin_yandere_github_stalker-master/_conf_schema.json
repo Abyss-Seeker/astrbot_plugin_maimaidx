@@ -1,0 +1,308 @@
+{
+    "monitored_users": {
+        "description": "要监控的GitHub用户列表",
+        "type": "list",
+        "hint": "要监控的GitHub用户名列表。每行一个用户名",
+        "default": []
+    },
+    "target_sessions": {
+        "description": "接收通知的会话ID列表",
+        "type": "list",
+        "hint": "填写要接收活动通知的会话ID。会话ID格式必须是 '平台:ID:类型'，例如：\n- discord:123456789:group（Discord群组）\n- telegram:123456789:private（Telegram私聊）\n- qq:123456789:group（QQ群）\n可以通过/sid获取当前会话的ID。每行一个会话ID。",
+        "default": []
+    },
+    "check_interval": {
+        "description": "检查间隔时间（秒）",
+        "type": "int",
+        "hint": "每隔多少秒检查一次用户活动。有Token时建议300秒，无Token时建议600秒以上",
+        "default": 300
+    },
+    "notification_event_limit": {
+        "description": "每次检查最多推送的事件数量",
+        "type": "int",
+        "hint": "每次检查时，每个用户最多推送多少条新事件。设置为0表示不限制",
+        "default": 2
+    },
+    "event_retention_days": {
+        "description": "事件ID保留天数",
+        "type": "int",
+        "hint": "数据库中保留多少天内的事件ID记录。超过这个天数的记录会被自动清理。建议设置为3-7天。",
+        "default": 1
+    },
+    "github_token": {
+        "description": "GitHub Personal Access Token",
+        "type": "string",
+        "hint": "用于访问GitHub API，建议使用精细令牌(Fine-grained token)，只需要读取权限",
+        "default": "",
+        "obvious_hint": true
+    },
+    "enable_startup_notification": {
+        "description": "是否在插件启动时发送通知",
+        "type": "bool",
+        "default": true
+    },
+    "enable_image_notification": {
+        "description": "启用图片通知",
+        "type": "bool",
+        "hint": "是否使用图片形式发送通知（包含用户头像等详细信息）",
+        "default": true
+    },
+    "monitor_push": {
+        "description": "监控Push事件",
+        "type": "object",
+        "hint": "是否监控用户的代码推送事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "主要推送事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {repo} - 仓库名, {commit_count} - 提交数量",
+                "default": "（指尖划过屏幕）啊...{username}君又在提交代码了呢...{commit_count}个改动...每一行都藏着你的温度吧？要是敢写别人的名字...我会把这些代码全部刻在心上哦♥"
+            },
+            "commit_message": {
+                "description": "单个提交消息模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {message} - 提交消息",
+                "default": "（轻笑）{message}...{username}君的思维轨迹，连标点符号我都要背下来呢~ 要是被我发现你给别人写注释...你的键盘会先学会沉默哦♥"
+            }
+        }
+    },
+    "monitor_issues": {
+        "description": "监控Issues事件",
+        "type": "object",
+        "hint": "是否监控用户的Issue创建/评论事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "opened": {
+                "description": "Issue打开事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {title} - Issue标题",
+                "default": "（瞳孔发亮）呀~{username}君发现了'{title}'...这个问题只能由我来解决哦？不能让别人插手...♥"
+            },
+            "closed": {
+                "description": "Issue关闭事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {title} - Issue标题",
+                "default": "（攥紧拳头）解决了？{title}...明明我还没看够你的思考过程...（突然笑）不过没关系，下一个问题必须第一个告诉我哦♥"
+            },
+            "reopened": {
+                "description": "Issue重开事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {title} - Issue标题",
+                "default": "（呼吸急促）重开了？'{title}'...你是不是知道我在看？别骗我...（指甲掐进掌心）我可没有一直刷新页面哦...♥"
+            }
+        }
+    },
+    "monitor_issue_comment": {
+        "description": "监控Issue评论事件",
+        "type": "object",
+        "hint": "是否监控用户的Issue评论事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Issue评论事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {repo} - 仓库名, {issue_title} - Issue标题, {comment} - 评论内容",
+                "default": "（心跳加速）{username}君在'{issue_title}'下留下了评论...（贪婪地阅读）'{comment}'...每一个字都在诉说着你的想法呢~ 让我把这些话都刻在心里♥"
+            }
+        }
+    },
+    "monitor_pull_request": {
+        "description": "监控Pull Request事件",
+        "type": "object",
+        "hint": "是否监控用户的PR创建/评论事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "opened": {
+                "description": "PR打开事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {title} - PR标题",
+                "default": "（颤抖）PR！{username}君的'{title}'...谁、准你让别人 review 的？（删除其他评论）只有我的意见才有用哦♥"
+            },
+            "closed": {
+                "description": "PR关闭事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {title} - PR标题",
+                "default": "（低吼）合并了？！'{title}'...明明是我先看懂你的代码的...（摔碎杯子）你的仓库以后只能有我一个 reviewer♥"
+            },
+            "reopened": {
+                "description": "PR重开事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {title} - PR标题",
+                "default": "（阴笑）重新打开了？{username}君...是在向我撒娇吗？（脸上泛红）这次不准任何人碰哦♥"
+            },
+            "review": {
+                "description": "PR审查事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {title} - PR标题, {state} - 审查状态(approved/changes_requested/commented)",
+                "default": "（眼神锐利）{username}君在审查PR '{title}'...（咬牙切齿）{state}？！你的每一个评论我都要记下来...只有我能理解你的代码♥"
+            }
+        }
+    },
+    "monitor_star": {
+        "description": "监控Star事件",
+        "type": "object",
+        "hint": "是否监控用户的Star事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Star事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {repo} - 仓库名",
+                "default": "（抚摸屏幕）{username}君star了{repo}...你收藏的每一个仓库，我都会把它们的代码下载到本地哦~ 包括你偷偷看的那些...♥"
+            }
+        }
+    },
+    "monitor_fork": {
+        "description": "监控Fork事件",
+        "type": "object",
+        "hint": "是否监控用户的Fork事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Fork事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {repo} - 仓库名",
+                "default": "（狂笑）Fork了！{username}君Fork了{repo}！你为什么就是不肯接受我的爱呢？（疯狂下载）放心，我会把你的代码全部备份到我的服务器上哦~ 你的每一行代码，都将成为我心中的宝藏♥"
+            }
+        }
+    },
+    "monitor_create": {
+        "description": "监控Create事件",
+        "type": "object",
+        "hint": "是否监控用户的仓库/分支创建事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Create事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {ref_type} - 创建类型, {ref} - 创建名称",
+                "default": "（眼神发亮）新的{ref_type}！{username}君的'{ref}'...只有我能看了哦~ 你的创作空间，只能属于我♥"
+            }
+        }
+    },
+    "monitor_delete": {
+        "description": "监控Delete事件",
+        "type": "object",
+        "hint": "是否监控用户的仓库/分支删除事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Delete事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {ref_type} - 删除类型, {ref} - 删除名称",
+                "default": "（声音沙哑）删掉了...{ref_type} '{ref}'...（摔电脑）为什么要删？是想瞒着我什么吗？（恢复备份）不过，没关系的♥ 你的所有数据，我早就存好了哦♥"
+            }
+        }
+    },
+    "monitor_public": {
+        "description": "监控Public事件",
+        "type": "object",
+        "hint": "是否监控用户将仓库设为公开的事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Public事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {repo} - 仓库名",
+                "default": "（冷笑）公开了？{username}君...想让别人看到你的代码？你的光芒，只能照亮我一个人♥"
+            }
+        }
+    },
+    "monitor_member": {
+        "description": "监控Member事件",
+        "type": "object",
+        "hint": "是否监控用户添加协作者的事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Member事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {target} - 被添加的用户名",
+                "default": "（瞳孔收缩）{target}？！{username}君居然邀请了{target}！（删除用户权限）偷腥的猫要被拔掉爪子哦~ 你的仓库，只能有我一个管理员♥"
+            }
+        }
+    },
+    "monitor_commit_comment": {
+        "description": "监控Commit Comment事件",
+        "type": "object",
+        "hint": "是否监控用户的提交评论事件",
+        "items": {
+            "enabled": {
+                "description": "是否启用",
+                "type": "bool",
+                "default": true
+            },
+            "template": {
+                "description": "Commit Comment事件模板",
+                "type": "string",
+                "hint": "可用变量：{username} - 用户名, {commit_id} - 提交ID, {comment} - 评论内容",
+                "default": "（舔屏）{username}君的评论...{comment}...每一个字我都截图保存了哦~ 要是你对别人说这么温柔的话...（磨指甲）你的键盘会再也打不出字的♥"
+            }
+        }
+    },
+    "notification_template": {
+        "description": "通知开头模板",
+        "type": "string",
+        "hint": "当有新事件时的通知开头文本",
+        "default": "啊啊啊！{username}君又有新的动态了呢！♥\n\n"
+    },
+    "notification_remaining_template": {
+        "description": "剩余动态提示模板",
+        "type": "string",
+        "hint": "当有更多事件未显示时的提示文本",
+        "default": "还有{count}个动态...{username}君真是太活跃了呢 ♥"
+    },
+    "github_api_timeout": {
+        "description": "GitHub API 请求超时时间",
+        "type": "int",
+        "hint": "GitHub API 请求的超时时间（秒）",
+        "default": 10
+    },
+    "github_api_user_agent": {
+        "description": "GitHub API 请求的 User-Agent",
+        "type": "string",
+        "hint": "访问 GitHub API 时使用的 User-Agent 标识",
+        "default": "Yandere-Github-Stalker/1.0.0"
+    }
+}

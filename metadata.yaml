@@ -1,0 +1,22 @@
+name: astrbot_plugin_maimaidx
+author: AbyssSeeker
+description: MaimaiDX 插件 - 舞萌DX查询工具
+version: 1.0.0
+repository: https://github.com/AbyssSeeker/astrbot_plugin_maimaidx
+license: MIT
+keywords:
+  - maimai
+  - maimaidx
+  - rhythm-game
+  - music-game
+  - bot-plugin
+platforms:
+  - astrbot
+requirements:
+  - aiofiles>=23.2.1
+  - aiohttp>=3.8.5
+  - Pillow>=10.0.0
+  - pydantic>=2.4.2
+  - pyecharts>=2.0.4
+  - playwright>=1.52.0
+  - numpy>=1.24.4 

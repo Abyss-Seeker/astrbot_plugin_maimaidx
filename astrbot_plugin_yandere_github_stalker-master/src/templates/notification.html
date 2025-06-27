@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        margin: 0;
+        padding: 60px;
+        font-family: "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+        background: #000000;
+        min-height: 520px;
+        box-sizing: border-box;
+      }
+      .container {
+        padding: 60px;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+      .title {
+        font-size: 96px;
+        font-weight: bold;
+        text-align: center;
+        color: #ff0000;
+        margin-bottom: 80px;
+        padding-bottom: 40px;
+      }
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        margin-bottom: 80px;
+        padding: 40px 0;
+        border-bottom: 3px solid rgba(255, 0, 0, 0.3);
+      }
+      .avatar {
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        border: 6px solid #ff0000;
+      }
+      .username {
+        font-size: 72px;
+        font-weight: bold;
+        color: #ff0000;
+      }
+      .event-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 60px;
+        padding: 60px 40px;
+        margin-bottom: 0;
+      }
+      .event-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 30px;
+        min-height: 80px;
+        padding-right: 40px;
+      }
+      .event-type {
+        font-size: 48px;
+        display: inline-flex;
+        font-weight: bold;
+        color: #ff0000;
+        padding: 10px 30px;
+        background: rgba(255, 0, 0, 0.2);
+        border-radius: 16px;
+        white-space: nowrap;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .event-info {
+        flex: 1;
+        min-width: 0; /* 防止flex子元素溢出 */
+        overflow: hidden; /* 确保内容不会溢出 */
+      }
+      .repo-name {
+        font-size: 56px;
+        font-weight: bold;
+        color: #ff0000;
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+        word-break: break-all; /* 允许在任何字符间断行 */
+        overflow-wrap: break-word; /* 允许长单词换行 */
+        min-width: 0; /* 允许flex项目收缩 */
+      }
+      .event-description {
+        font-size: 60px;
+        color: #ff0000;
+        line-height: 1.6;
+        margin: 20px 0;
+        padding-right: 40px;
+        word-wrap: break-word;
+        text-shadow: 
+          10px 10px 4px rgba(255, 0, 0, 0.3),
+          -12px 8px 4px rgba(255, 105, 180, 0.3),
+          8px -12px 4px rgba(255, 20, 147, 0.3),
+          -10px -10px 4px rgba(255, 0, 0, 0.3),
+          12px -8px 4px rgba(255, 105, 180, 0.3);
+      }
+      .event-time {
+        font-size: 36px;
+        color: #ff0000;
+        margin-top: 30px;
+      }
+      .heart {
+        position: absolute;
+        font-size: 72px;
+        color: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      {% for event in events %}
+      <div class="event-item">
+        <div class="event-info">
+          <div class="event-header">
+            <div class="event-type">{{ event.type }}</div>
+            <div class="repo-name">{{ event.repo_name }}</div>
+          </div>
+          <div class="event-description">{{ event.description }}</div>
+          <div class="event-time">{{ event.created_at }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

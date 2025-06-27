@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "default_username": {
+      "type": "string",
+      "description": "默认用户名，当用户未指定用户名时使用",
+      "default": "default"
+    },
+    "enable_image_output": {
+      "type": "boolean",
+      "description": "是否启用图片输出",
+      "default": true
+    },
+    "enable_text_output": {
+      "type": "boolean",
+      "description": "是否启用文本输出",
+      "default": true
+    },
+    "max_search_results": {
+      "type": "integer",
+      "description": "搜索结果最大显示数量",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 50
+    },
+    "auto_update_data": {
+      "type": "boolean",
+      "description": "是否自动更新曲库数据",
+      "default": false
+    },
+    "data_update_interval": {
+      "type": "integer",
+      "description": "数据更新间隔（小时）",
+      "default": 24,
+      "minimum": 1,
+      "maximum": 168
+    }
+  },
+  "required": []
+} 
