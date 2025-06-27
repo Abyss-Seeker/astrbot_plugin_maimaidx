@@ -1,8 +1,11 @@
 import copy
+import asyncio
+import json
+import random
 from pathlib import Path
 from typing import List, Optional, Union, Any, Sequence, Dict, MutableSequence, cast
-from PIL import Image, ImageDraw
-from libraries.config import maimaidir, SIYUAN, TBFONT, fcl, fsl, achievementList, plate_to_dx_version, platecn, version_map, Root, BOTNAME, score_Rank_l, score_Rank, combo_rank, sync_rank, ratingdir, platedir
+from PIL import Image, ImageDraw, ImageFont
+from .config import maimaidir, SIYUAN, TBFONT, fcl, fsl, achievementList, plate_to_dx_version, platecn, version_map, Root, BOTNAME, score_Rank_l, score_Rank, combo_rank, sync_rank, ratingdir, platedir, levelList, diffs
 from .image import DrawText, image_to_base64, music_picture, text_to_image, rounded_corners
 from .maimaidx_api_data import maiApi
 from .maimaidx_error import *

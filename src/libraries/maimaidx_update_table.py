@@ -7,7 +7,7 @@ import aiofiles
 from .image import tricolor_gradient
 from .maimai_best_50 import *
 from .maimaidx_music import Music, mai
-from libraries.config import levelList, plate_to_dx_version, maimaidir, ratingdir, platedir, BOTNAME, platecn, version_map
+from .config import levelList, plate_to_dx_version, maimaidir, ratingdir, platedir, BOTNAME, platecn, version_map
 from .maimai_best_50 import ScoreBaseImage
 from .image import DrawText
 from typing import Dict

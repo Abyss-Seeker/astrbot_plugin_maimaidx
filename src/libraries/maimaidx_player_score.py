@@ -4,11 +4,11 @@ import math
 import traceback
 from io import BytesIO
 from typing import List, Optional, Union, Tuple, Dict
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont
 
-from PIL import Image, ImageDraw
-
-from libraries.config import BOTNAME
-from libraries.config import *
+from .config import BOTNAME
+from .config import *
 from .image import DrawText, image_to_base64, text_to_image, tricolor_gradient, music_picture
 from .maimaidx_api_data import maiApi
 from .maimaidx_error import *

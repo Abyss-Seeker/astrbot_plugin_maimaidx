@@ -5,7 +5,7 @@ from typing import Optional, Tuple, Union, overload, List
 
 from PIL import Image, ImageDraw
 
-from libraries.config import BOTNAME, maimaidir, coverdir, ratingdir, platedir, SIYUAN, SHANGGUMONO, TBFONT, score_Rank_l, fcl, fsl
+from .config import BOTNAME, maimaidir, coverdir, ratingdir, platedir, SIYUAN, SHANGGUMONO, TBFONT, score_Rank_l, fcl, fsl
 from .image import DrawText, image_to_base64, music_picture
 from .maimaidx_api_data import maiApi
 from .maimaidx_error import *
